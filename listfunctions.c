@@ -16,6 +16,26 @@ bool is_empty(LIST* L) {
 }
 
 
+bool is_looped(LIST* L) {
+	int capacity = 1;
+	int count = 0;
+	LIST** addresses = (LIST**)malloc(capacity * sizeof(LIST*));
+	LIST* arr = L->next;
+	while (arr) {
+		for (int i = 0; i < count; i++)
+			if (arr == *(addresses + i))
+				return true;
+		if (count >= capacity) {
+			capacity *= 2;
+			addresses = (LIST**)realloc(addresses, capacity * sizeof(LIST*));
+		}
+		*(addresses + count++) = arr;
+		arr = arr->next;
+	}
+	return false;
+}
+
+
 void push_start(LIST* L, int key, float value) {
 	LIST* cur;
 	cur = malloc(sizeof(LIST));
@@ -93,6 +113,24 @@ float value_key(LIST* L, int key) {
 	return -1;
 }
 
+
+void reverse_list(LIST* L) {
+	if (is_empty(L) || !(L->next->next))
+		return 0;
+	LIST* prev = L->next;
+	LIST* cur = prev->next;
+	LIST* next = cur->next;
+	prev->next = NULL;
+	while (next) {
+		cur->next = prev;
+		prev = cur;
+		cur = next;
+		next = next->next;
+	}
+	cur->next = prev;
+	L->next = cur;
+}
+ 
 
 void print_list(LIST* L) {
 	LIST* cur = L->next;

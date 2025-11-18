@@ -1,45 +1,39 @@
 #include"listfunctions.h"
 
+void push_end_loop(LIST* L, int key, float value) {
+	LIST* cur;
+	cur = malloc(sizeof(LIST));
+	cur->key = key;
+	cur->value = value;
+
+	if (is_empty(L))
+		L->next = cur;
+	else {
+		LIST* next = L->next;
+		while (next->next)
+			next = next->next;
+		next->next = cur;
+	}
+	cur->next = L->next->next->next;
+}
 
 int main(){
 	LIST* L = create_list();
 	
-	printf("Adding elements to the beginning:\n");
+	printf("\n");
 	push_start(L, 1, 2.25);
 	push_start(L, 2, 11.11);
 	push_start(L, 3, 4.13);
-	print_list(L);
+	push_start(L, 4, 3.03);
+	push_start(L, 5, 1.12);
+	push_start(L, 6, 14.41);
+	push_start(L, 7, 66.7);
+	push_start(L, 8, 67.45);
+	push_end_loop(L, 0, 666.5);
 
-
-	printf("\nAdding elements to the end:\n");
-
-	push_end(L, 4, 9.64);
-	push_end(L, 5, 8.1);
-	push_end(L, 6, 6.02);
-	print_list(L);
-
-
-	printf("\nGetting a value by key(4):\n");
-
-	printf("%f\n", value_key(L, 4));
-
-
-	printf("\nDelete first:\n");
-
-	pop_first(L);
-	print_list(L);
-
-
-	printf("\nDeleting by key(5):\n");
-
-	pop_key(L, 5);
-	print_list(L);
-
-
-	printf("\nDelete all items:\n");
-
-	pop_all(L);
-	print_list(L);
+	if (is_looped(L)) {
+		printf("\nloopa\n");
+	}
 
 	return 0;
 }

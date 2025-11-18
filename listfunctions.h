@@ -19,6 +19,8 @@ LIST* create_list(void);
 
 bool is_empty(LIST* L);
 
+bool is_looped(LIST* L);
+
 void push_start(LIST* L, int key, float value);
 void push_end(LIST* L, int key, float value);
 
@@ -28,6 +30,8 @@ void pop_key(LIST* L, int key);
 void pop_all(LIST* L);
 
 float value_key(LIST* L, int key);
+
+void reverse_list(LIST* L);
 
 void print_list(LIST* L);
 
